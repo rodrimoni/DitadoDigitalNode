@@ -1,0 +1,22 @@
+h1 {
+    margin: 10px;
+    color: deeppink;
+}
+
+.container {
+    padding-top: 20px;
+}
+
+.btn {
+    background-color: hotpink;
+    border-color: hotpink;
+}
+
+.btn:hover {
+    background-color: deeppink;
+    border-color: deeppink;
+}
+
+.botaoSalvar {
+    padding-top:20px;
+}

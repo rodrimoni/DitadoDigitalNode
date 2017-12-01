@@ -1,0 +1,17 @@
+{
+  "name": "ditadodigitalnode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+ "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "ejs": "^1.0.0",
+    "express": "^4.16.2",
+    "mysql": "^2.15.0"
+  }
+}
