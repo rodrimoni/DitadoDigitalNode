@@ -1,3 +1,6 @@
+var server = require("../app");
+var ObjectId = require('mongodb').ObjectID;
+
 module.exports = function(app)
 {
     app.get('/professora',function(req,res){
@@ -6,34 +9,48 @@ module.exports = function(app)
     app.get('/alunos',function(req,res){
         res.render('alunos.html');
     });
-    app.post('/salvarDitado', function (req, res) {
-        salvarDitado(req.body);
-        res.redirect('/professora');
+    app.get('/ditados',function(req,res){
+        res.render('ditados.html');
     });
-};
+    app.get('/carregarDitados', function(req,res){
+        var ditados;
+        (server.db).collection('DitadoDigital').find().toArray(function(err, results) {
+            res.end(JSON.stringify(results));
+        });
+    });
+    app.get('/ativarDitado', function (req, res) {
+        var ditadoID = req.query.ditadoID;
 
-var salvarDitado = function(palavras) {
-    var fs = require('fs');
-    var filePath = "public/ditados.json";
-    if (fs.existsSync(filePath)) {
-        fs.readFile(filePath, 'utf8', function readFileCallback(err, data){
-            if (err){
-                console.log(err);
-            } else {
-                var DitadoDigital = JSON.parse(data); //now it an object
-                console.log(DitadoDigital);
-                var id = DitadoDigital.Ditados.length + 1;
-                DitadoDigital.Ditados.push({id: id,  status: "inativo", palavras: palavras}); //add some data
-                json = JSON.stringify(DitadoDigital); //convert it back to json
-                fs.writeFile(filePath, json, 'utf8'); // write it back
-            }});
-    }
-    else {
-        var DitadoDigital = {
-            Ditados: []
-        };
-        DitadoDigital.Ditados.push({id: 1, status: "inativo", palavras: palavras });
-        var json = JSON.stringify(DitadoDigital);
-        fs.writeFile(filePath, json, 'utf8');
-    }
+        var myquery = { _id: {$ne: ObjectId(ditadoID)}};
+        var newValue = {$set: {status: 'inativo'}};
+
+        (server.db).collection('DitadoDigital').update(
+            myquery,
+            newValue
+        );
+
+        var myquery = { _id: ObjectId(ditadoID)};
+        var newValue = {$set: {status: 'ativo'}};
+
+        (server.db).collection('DitadoDigital').update(
+            myquery,
+            newValue
+        );
+
+        res.end();
+    });
+
+
+    app.post('/salvarDitado', function (req, res) {
+        (server.db).collection('DitadoDigital').insert(
+            {
+                'status': 'inativo',
+                'palavras' : req.body
+            },
+            function(err, result) {
+                if (err) return console.log(err);
+                console.log('saved to database');
+                res.redirect('/ditados');
+            });
+    });
 };

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+    <!-- Bootstrap Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="system.css">
+
+    <title>Meus Ditados</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-company-pink fixed-top">
+        <a class="navbar-brand" href="#">Ditado Digital</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/ditados">Meus Ditados <span class="sr-only">(current)</span> </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/professora">Criar Ditado </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class = "container">
+        <form>
+            <div class="form-row align-items-center">
+                <div class="col-auto">
+                    <label class="mr-sm-2" for="ditados">Selecione o ditado: </label>
+                    <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="ditados">
+                        <option selected value="0">Escolha...</option>
+                    </select>
+                    <div id = "statusDitado" style="display:none;">
+                        <label class="mr-sm-2" for="status">Status do Ditado: </label>
+                        <span id = "status"></span>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div id = "mostraDitados" style = "display:none;">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="text" required="true" class="form-control umaPalavra" name = "Palavra1" id="inputPalavra1" placeholder="Palavra 1" readonly>
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="text" required="true" class="form-control umaPalavra" name = "Palavra2" id="inputPalavra2" placeholder="Palavra 2" readonly>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="text" required="true" class="form-control umaPalavra" name = "Palavra3" id="inputPalavra3" placeholder="Palavra 3" readonly>
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="text" required="true" class="form-control umaPalavra" name = "Palavra4" id="inputPalavra4" placeholder="Palavra 4" readonly>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="text" required="true" class="form-control umaPalavra" name = "Palavra5" id="inputPalavra5" placeholder="Palavra 5" readonly>
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="text" required="true" class="form-control umaPalavra" name = "Palavra6" id="inputPalavra6" placeholder="Palavra 6" readonly>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="text" required="true" class="form-control umaPalavra" name = "Palavra7" id="inputPalavra7" placeholder="Palavra 7" readonly>
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="text" required="true" class="form-control umaPalavra" name = "Palavra8" id="inputPalavra8" placeholder="Palavra 8" readonly>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="text" required="true" class="form-control umaPalavra" name = "Palavra9" id="inputPalavra9" placeholder="Palavra 9" readonly>
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="text" required="true" class="form-control umaPalavra" name = "Palavra10" id="inputPalavra10" placeholder="Palavra 10" readonly>
+                </div>
+            </div>
+
+            <div class ="form-row">
+                <div class ="form-group col-md-12 text-center">
+                    <input  type="submit" class="btn btn-primary btn-lg" id="ativarDitado" value="Ativar Ditado">
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script>
+    var ditados;
+
+    $(document).ready(function(){
+        $.ajax({
+            type: 'GET',
+            contentType: 'application/json',
+            url: '/carregarDitados',
+            success: function(data) {
+                console.log('success');
+                ditados = JSON.parse(data);
+                console.log(ditados);
+                var $dropdown = $("#ditados");
+                ditados.forEach(function(e,i) {
+                    $dropdown.append($("<option />").val(ditados[i]._id).text("Ditado " + (i + 1)));
+                });
+            }
+        });
+    });
+
+    $("#ditados").on('change', function (){
+        var ditadoID = $('#ditados option:selected').val();
+        if (ditadoID !== "0") {
+            var ditadoEscolhido = ditados.filter(function (d) {
+                return d._id === ditadoID;
+            })[0];
+
+            var palavrasArray = $.map(ditadoEscolhido.palavras, function (value, index) {
+                return [value];
+            });
+
+            $('#mostraDitados').show();
+            $('#statusDitado').show();
+
+            $(".umaPalavra").each(function (i, e) {
+                e.value = palavrasArray[i];
+            });
+
+            $("#status").text(ditadoEscolhido.status).attr('style', function () {
+                return ditadoEscolhido.status === 'inativo' ? 'color:red;' : 'color:blue';
+            });
+
+        }
+        else
+        {
+            $('#mostraDitados').hide();
+            $('#statusDitado').hide();
+        }
+    });
+
+    $("#ativarDitado").on('click', function(){
+        var ditadoID = $('#ditados option:selected').val();
+        console.log(ditadoID);
+        $.ajax({
+            type: 'GET',
+            data: {'ditadoID':ditadoID},
+            contentType: 'application/json',
+            url: '/ativarDitado',
+            success: function(data) {
+                console.log('success');
+                location.reload();
+            }
+        });
+    })
+
+</script>

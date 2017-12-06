@@ -1,6 +1,13 @@
-h1 {
-    margin: 10px;
-    color: deeppink;
+.bg-company-pink {
+    background-color: hotpink;
+}
+
+.container {
+    padding-top: 70px;
+}
+
+#mostraDitados{
+    padding-top: 20px ;
 }
 
 .btn {
@@ -17,8 +24,4 @@ h1 {
 .btn-primary:not([disabled]):not(.disabled):active {
     background-color: deeppink;
     border-color: deeppink;
-}
-
-.botaoSalvar {
-    padding-top:20px;
 }
