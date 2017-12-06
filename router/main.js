@@ -21,14 +21,6 @@ module.exports = function(app)
     app.get('/ativarDitado', function (req, res) {
         var ditadoID = req.query.ditadoID;
 
-        var myquery = { _id: {$ne: ObjectId(ditadoID)}};
-        var newValue = {$set: {status: 'inativo'}};
-
-        (server.db).collection('DitadoDigital').update(
-            myquery,
-            newValue
-        );
-
         var myquery = { _id: ObjectId(ditadoID)};
         var newValue = {$set: {status: 'ativo'}};
 
@@ -36,6 +28,10 @@ module.exports = function(app)
             myquery,
             newValue
         );
+
+        var newQuery = {_id: { $ne : ObjectId(ditadoID)}};
+
+        (server.db).collection('DitadoDigital').updateMany(newQuery, {$set: {status: 'inativo'}});
 
         res.end();
     });
