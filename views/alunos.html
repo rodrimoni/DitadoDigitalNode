@@ -2,10 +2,96 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>about</title>
-    <h2> aeeaeaaskposadkarefdeawwadop</h2>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+
+    <!-- Bootstrap Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="css/system.css">
+    <link rel="stylesheet" href="css/alunos.css">
+
+
+    <!-- keyboard widget css & script -->
+    <link href="css/keyboard.css" rel="stylesheet">
+    <script src="js/jquery.keyboard.js"></script>
+
+    <!-- css for the preview keyset extension -->
+    <link href="css/keyboard-previewkeyset.css" rel="stylesheet">
+
+    <!-- keyboard optional extensions - include ALL (includes mousewheel) -->
+    <script src="js/jquery.keyboard.extension-all.js"></script>
+
+    <script src="js/callKeyboard.js"></script>
+
+    <link rel="stylesheet" href="css/softkeys-0.0.1.css">
+    <script src="js/softkeys-0.0.1.js"></script>
+
+    <title>Ditado</title>
 </head>
 <body>
+<nav class="navbar navbar-expand-md navbar-dark bg-company-pink fixed-top">
+    <a class="navbar-brand" href="#">Ditado Digital</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+
+<div class="container">
+    <form>
+        <div class ="Absolute-Center is-Responsive">
+            <div class="form-row">
+                <div class="form-group col-md-12 text-center">
+                    <h2>Assim que a professora ditar, digite a palavra:</h2>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <input type="text" required="true" class="form-control" name = "palavra" id="palavraDitado" placeholder="Digite aqui...">
+                </div>
+                <div class ="form-row">
+                    <div class="softkeys" data-target="input[name='palavra']"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 
 </body>
 </html>
+
+<script>
+    $(document).ready(function(){
+        $('.softkeys').softkeys({
+            target : $('.softkeys').data('target'),
+            layout : [
+                [
+                    'q','w','e','r','t','y','u','i','o','p', 'delete',
+                ],
+                [
+                    'capslock',
+                    'a','s','d','f','g','h','j','k','l',
+                    [';',':'],
+                    ["'",'&quot;'],
+                    ['\\','|']
+                ],
+                [
+                    'shift',
+                    'z','x','c','v','b','n','m',
+                    [',','&lt;'],
+                    ['.','&gt;'],
+                    ['/','?'],
+                    ['@']
+                ]
+            ]
+        });
+    });
+</script>

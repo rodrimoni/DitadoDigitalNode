@@ -1,0 +1,24 @@
+h1 {
+    margin: 10px;
+    color: deeppink;
+}
+
+.btn {
+    background-color: hotpink;
+    border-color: hotpink;
+    cursor:pointer;
+}
+
+.btn:hover{
+    background-color: deeppink;
+    border-color: deeppink;
+}
+
+.btn-primary:not([disabled]):not(.disabled):active {
+    background-color: deeppink;
+    border-color: deeppink;
+}
+
+.botaoSalvar {
+    padding-top:20px;
+}
